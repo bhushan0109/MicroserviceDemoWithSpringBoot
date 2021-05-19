@@ -17,6 +17,7 @@ import com.finovate.address.model.Address;
 import com.finovate.address.repository.AddressRepository;
 
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @Service
 public class AddressService implements IAddressService {
@@ -34,25 +35,19 @@ public class AddressService implements IAddressService {
 	}
 
 	public ResponseTemplateDTO getAddressWithPersonDetails(UUID aid) {
-	ResponseTemplateDTO vo = new ResponseTemplateDTO();
-	//	Optional<Address> aust = addressRepository.findById(aid);
-		//UUID cid =aust.get().getCid();
-		//log.info("bhushan"+cid);
-	Address address= addressRepository.findByAid(aid);
-	
-		//Address address = addressRepository.findById(id).orElseThrow(() -> new AddressException("details not found!"));
-		ContactDTO contactDTO = restTemplate.getForObject("http://localhost:9001/person/contact/" +address.getCid(),
+		ResponseTemplateDTO vo = new ResponseTemplateDTO();
+
+		Address address = addressRepository.findByAid(aid);
+
+		ContactDTO contactDTO = restTemplate.getForObject("http://localhost:9001/person/contact/" + address.getCid(),
 				ContactDTO.class);
-		log.info("bhushan"+contactDTO);
+		log.info("bhushan" + contactDTO);
 		System.out.println(contactDTO.toString());
-		/*
-		 * vo.setAddress(address); vo.setContacDTO(contact); return vo;
-		 */
-		//ResponseTemplateDTO vo = new ResponseTemplateDTO();
+
 		vo.setAddress(address);
 		vo.setContactDTO(contactDTO);
 		return vo;
-		
+
 	}
 
 	@Override

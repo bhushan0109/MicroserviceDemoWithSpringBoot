@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.finovate.address.dto.AddressDTO;
 
 
@@ -35,6 +36,8 @@ public class Address {
 	private String city; // variable and fields of person address
 	private String state;
 	private String zipCode;
+	@JsonIgnore
+//@Type(type = "uuid-char") 
 	private UUID cid; // p/k of contact
 
 	public Address(AddressDTO addressDTO) {
